@@ -259,7 +259,7 @@ When agents are running, they appear in a tree view below the main status line:
 
 ## Acknowledgments
 
-METRICC was inspired by and originally forked from the [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) framework. OMC is a fantastic multi-agent orchestration system for Claude Code — go check it out if you haven't already.
+METRICC was inspired by and (maybe borrowed some code from - Claude Coded it) from the [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) framework. OMC is a fantastic multi-agent orchestration system for Claude Code (although might not be as useful these days witout the recent updates to Claude Code and the latet Opus model) — go check it out if you haven't already.
 
 ## License
 
