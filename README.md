@@ -4,45 +4,87 @@ A custom statusline for [Claude Code](https://docs.anthropic.com/en/docs/claude-
 
 No dependencies to install. Just one file.
 
-## Screenshots
+---
 
-**Fresh session** — all green, low usage, latest version:
+## The Full Picture
 
-![Fresh Start](docs/images/hud-fresh-start.png)
+Here's what the HUD looks like with all features active — rate limits, context, changes, agents, todos, model, and version info all in one line:
 
-**Active development** — agents running, code changes tracked, update available:
+[![Full HUD — click to view full-size](docs/images/hud-full-bar.png)](https://raw.githubusercontent.com/professionalcrastinationco/METRICC/main/docs/images/hud-full-bar.png)
 
-![Active Development](docs/images/hud-active-dev.png)
+> **Tip:** Click the image above to view it full-size.
 
-**Heavy session** — yellow warnings as usage climbs, todo progress tracking:
+---
 
-![Heavy Session](docs/images/hud-heavy-session.png)
+## What Each Piece Means
 
-**Near the limit** — red critical indicators, agent details inline:
+The screenshots below are **zoomed-in views** of each segment of the status bar so they're easy to read here on GitHub. These all sit side-by-side in a single line — to see the assembled result, scroll up to [The Full Picture](#the-full-picture) or click any segment image to view it full-size.
 
-![Near Limit](docs/images/hud-near-limit.png)
+---
 
-## What It Shows
+### Rate Limits — `5h` and `7d`
 
-| Segment | What it means |
-|---------|---------------|
-| **5h / 7d** | How much of your rate limit you've used, with a countdown until it resets |
-| **Context** | How full the current conversation's context window is |
-| **Changes** | Lines of code added and removed this session |
-| **Agents** | Number of background agents running (with a detailed list below the bar) |
-| **Todos** | Task progress — how many done out of total |
-| **Model** | Which Claude model you're using (Opus 4.6, Sonnet 4.5, etc.) |
-| **Version** | Your Claude Code version, and whether an update is available |
+![Rate Limits](docs/images/seg-rate.png)
 
-### Color Coding
+Your Anthropic API usage across two windows: the **5-hour** rolling window and the **7-day** rolling window. The percentage shows how much of your limit you've used. The time in parentheses is a countdown until that window resets.
 
-Colors shift automatically as values get higher:
+The color changes automatically as you use more of your limit:
 
-| Color | Rate Limits | Context Window |
-|-------|-------------|----------------|
-| Green | Under 60% | Under 70% |
-| Yellow | 60–79% | 70–84% |
-| Red | 80%+ | 85%+ |
+**Yellow** — getting close (60%+):
+
+![Rate Limits warning](docs/images/seg-rate-warn.png)
+
+**Red** — almost out (80%+):
+
+![Rate Limits critical](docs/images/seg-rate-crit.png)
+
+---
+
+### Context Window
+
+![Context Window](docs/images/seg-context.png)
+
+How full the current conversation's context window is. This is the amount of "memory" Claude has for this session. The same green/yellow/red color coding applies — it turns yellow at 70% and red at 85%.
+
+---
+
+### Code Changes
+
+![Code Changes](docs/images/seg-changes.png)
+
+Lines of code **added** (green) and **removed** (red) during this session. A quick way to gauge how much work has been done without running `git diff`.
+
+---
+
+### Running Agents
+
+![Running Agents](docs/images/seg-agents.png)
+
+When Claude Code launches background agents (for research, exploration, etc.), they appear here. The count shows how many are active, and a tree view below the main bar shows details for each one:
+
+- The letter badge shows the model — **s** (Sonnet), **O** (Opus), **h** (Haiku)
+- How long the agent has been running
+- What the agent is doing
+
+Agents that have been running for over 30 minutes are automatically marked as stale and hidden.
+
+---
+
+### Todo Progress
+
+![Todo Progress](docs/images/seg-todos.png)
+
+When Claude Code is tracking tasks (via `TodoWrite` or `TaskCreate`), this shows how many are done out of the total. Yellow means there's still work to do — it turns green when all tasks are complete.
+
+---
+
+### Model and Version
+
+![Model and Version](docs/images/seg-model-version.png)
+
+The Claude model you're currently using (Opus 4.6, Sonnet 4.5, Haiku 4.5, etc.) and your Claude Code version. If a newer version is available, you'll see **(update avail)** in yellow. If you're on the latest, it just says **(latest)**.
+
+---
 
 ## Setup
 
