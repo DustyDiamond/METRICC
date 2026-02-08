@@ -1,7 +1,7 @@
 # METRICC
-## A Clean, Lightweight, Design Focused Status Bar for Claude Code
-
 **Model, Edits, Time-windows, Release, Info, Context for Claude Code**
+
+## A Clean, Lightweight, Design Focused Status Bar for Claude Code
 
 [![Full HUD — click to view full-size](docs/images/hud-full-bar.png)](https://raw.githubusercontent.com/professionalcrastinationco/METRICC/main/docs/images/hud-full-bar.png)
 
