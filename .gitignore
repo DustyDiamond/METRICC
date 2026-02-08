@@ -12,8 +12,14 @@ nul
 *.jpg
 *.jpeg
 
+# Allow docs images for README
+!docs/images/*.png
+
 # Doppler
 .doppler/
+
+# Playwright MCP
+.playwright-mcp/
 
 # Node
 node_modules/
