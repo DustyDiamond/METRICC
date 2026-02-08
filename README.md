@@ -1,8 +1,8 @@
 # Claude Code HUD
 
-A custom statusline for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that displays real-time rate limits, context usage, running agents, and more — right in your terminal.
+A custom statusline for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that shows your rate limits, context usage, running agents, and more — right in your terminal.
 
-Zero dependencies. Pure Node.js. Works standalone or with [oh-my-claudecode](https://github.com/nicobailon/oh-my-claudecode).
+No dependencies to install. Just one file.
 
 ## Screenshots
 
@@ -24,84 +24,181 @@ Zero dependencies. Pure Node.js. Works standalone or with [oh-my-claudecode](htt
 
 ## What It Shows
 
-| Segment | Source | Description |
-|---------|--------|-------------|
-| **5h / 7d** | Anthropic OAuth API | Rate limit usage with countdown to reset |
-| **Context** | Claude Code stdin | Context window fill percentage |
-| **Changes** | Claude Code stdin | Lines added / removed this session |
-| **Agents** | Transcript JSONL | Count + tree view of running background agents |
-| **Todos** | Transcript JSONL | Task completion progress (done/total) |
-| **Model** | Claude Code stdin | Active model (Opus 4.6, Sonnet 4.5, etc.) |
-| **Version** | npm registry | Claude Code version with update notification |
+| Segment | What it means |
+|---------|---------------|
+| **5h / 7d** | How much of your rate limit you've used, with a countdown until it resets |
+| **Context** | How full the current conversation's context window is |
+| **Changes** | Lines of code added and removed this session |
+| **Agents** | Number of background agents running (with a detailed list below the bar) |
+| **Todos** | Task progress — how many done out of total |
+| **Model** | Which Claude model you're using (Opus 4.6, Sonnet 4.5, etc.) |
+| **Version** | Your Claude Code version, and whether an update is available |
 
-### Color Thresholds
+### Color Coding
 
-Values change color based on severity:
+Colors shift automatically as values get higher:
 
-| Level | Rate Limits | Context Window |
+| Color | Rate Limits | Context Window |
 |-------|-------------|----------------|
-| Green | < 60% | < 70% |
+| Green | Under 60% | Under 70% |
 | Yellow | 60–79% | 70–84% |
 | Red | 80%+ | 85%+ |
 
 ## Setup
 
-### Standalone (recommended)
+There are two steps: **save the file**, then **point Claude Code to it**.
 
-1. Copy `custom-hud.mjs` somewhere permanent:
-   ```bash
-   mkdir -p ~/.claude/hud
-   cp custom-hud.mjs ~/.claude/hud/custom-hud.mjs
-   ```
+### Step 1 — Save the script
 
-2. Configure Claude Code to use it. Add to your `~/.claude/settings.json`:
-   ```json
-   {
-     "env": {
-       "CLAUDE_CODE_STATUSLINE_COMMAND": "node ~/.claude/hud/custom-hud.mjs"
-     }
-   }
-   ```
+You need to put `custom-hud.mjs` in a folder where it will stay. The recommended location is inside your Claude Code config folder.
 
-3. Restart Claude Code. The HUD appears automatically.
+<details>
+<summary><strong>macOS / Linux</strong></summary>
 
-### With oh-my-claudecode
+Open a terminal and run:
 
-If you use [oh-my-claudecode](https://github.com/nicobailon/oh-my-claudecode), the `omc-hud.mjs` wrapper auto-discovers the OMC plugin. Just install OMC and the HUD plugin loads from cache.
+```bash
+mkdir -p ~/.claude/hud
+curl -o ~/.claude/hud/custom-hud.mjs https://raw.githubusercontent.com/professionalcrastinationco/METRICC/main/custom-hud.mjs
+```
 
-## How It Works
+This creates the folder and downloads the file in one go.
 
-Claude Code pipes JSON to the statusline command via stdin on every render cycle. The HUD:
+Your file is now at: `~/.claude/hud/custom-hud.mjs`
 
-1. **Parses stdin** for context window stats, model info, transcript path, and cost data
-2. **Fetches rate limits** from the Anthropic OAuth API (cached 60s) using your existing Claude Code credentials
-3. **Parses the transcript** JSONL file to find running agents and todo progress
-4. **Checks npm** for the latest Claude Code version (cached 1 hour)
-5. **Renders** a color-coded single-line status with optional agent detail rows
+</details>
 
-All data fetching runs concurrently via `Promise.all` to minimize latency.
+<details>
+<summary><strong>Windows (PowerShell)</strong></summary>
 
-### Agent Tracking
+Open PowerShell and run:
 
-Running agents are displayed in a tree view below the main status line:
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\hud"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/professionalcrastinationco/METRICC/main/custom-hud.mjs" -OutFile "$env:USERPROFILE\.claude\hud\custom-hud.mjs"
+```
 
-- Badge shows the model: `O` (Opus), `s` (Sonnet), `h` (Haiku)
-- Elapsed time since agent started
-- Agent type and description
-- Agents older than 30 minutes are automatically marked stale
-- Up to 100 agents tracked, with oldest completed agents evicted first
+Your file is now at: `C:\Users\<your-username>\.claude\hud\custom-hud.mjs`
 
-### Caching
+</details>
 
-| Data | TTL | Location |
-|------|-----|----------|
-| Rate limits | 60s (15s on error) | `~/.claude/hud/.usage-cache.json` |
-| npm version | 1 hour | `~/.claude/hud/.version-cache.json` |
+<details>
+<summary><strong>Manual download (any OS)</strong></summary>
+
+1. Click on `custom-hud.mjs` in this repo
+2. Click the **Raw** button (or **Download**)
+3. Save the file to:
+   - **macOS / Linux:** `~/.claude/hud/custom-hud.mjs`
+   - **Windows:** `C:\Users\<your-username>\.claude\hud\custom-hud.mjs`
+4. Create the `hud` folder first if it doesn't exist
+
+</details>
+
+### Step 2 — Tell Claude Code to use it
+
+You need to add one setting to your Claude Code settings file.
+
+**Where is the settings file?**
+
+| OS | Path |
+|----|------|
+| macOS / Linux | `~/.claude/settings.json` |
+| Windows | `C:\Users\<your-username>\.claude\settings.json` |
+
+> If this file doesn't exist yet, just create it.
+
+**Add this to your settings file:**
+
+```json
+{
+  "env": {
+    "CLAUDE_CODE_STATUSLINE_COMMAND": "node ~/.claude/hud/custom-hud.mjs"
+  }
+}
+```
+
+> **Windows users:** Replace the path with your full Windows path:
+> ```json
+> "CLAUDE_CODE_STATUSLINE_COMMAND": "node C:\\Users\\YourName\\.claude\\hud\\custom-hud.mjs"
+> ```
+
+If your settings file already has content, just add the `CLAUDE_CODE_STATUSLINE_COMMAND` line inside the existing `"env"` section. Don't replace what's already there.
+
+<details>
+<summary>Example: merging with existing settings</summary>
+
+If your `settings.json` currently looks like this:
+
+```json
+{
+  "env": {
+    "SOME_OTHER_SETTING": "value"
+  }
+}
+```
+
+Add the new line with a comma:
+
+```json
+{
+  "env": {
+    "SOME_OTHER_SETTING": "value",
+    "CLAUDE_CODE_STATUSLINE_COMMAND": "node ~/.claude/hud/custom-hud.mjs"
+  }
+}
+```
+
+</details>
+
+### Step 3 — Restart Claude Code
+
+Close and reopen Claude Code. The HUD will appear at the bottom of your terminal automatically.
+
+> **Tip:** You can also ask Claude Code to do Step 2 for you. Just tell it:
+> *"Set my statusline command to `node ~/.claude/hud/custom-hud.mjs`"*
+
+### Using with oh-my-claudecode
+
+If you already use [oh-my-claudecode](https://github.com/nicobailon/oh-my-claudecode), the included `omc-hud.mjs` wrapper auto-discovers the OMC plugin — no extra setup needed.
 
 ## Requirements
 
-- Node.js 18+
-- Claude Code with an active Anthropic OAuth session (for rate limit data)
+- **Node.js 18 or newer** — you already have this if Claude Code is installed
+- **Claude Code** with an active login — the HUD uses your existing session for rate limit data
+
+<details>
+<summary><strong>Technical Details</strong></summary>
+
+### How It Works
+
+Claude Code sends JSON data to the statusline command every time the display refreshes. The HUD reads that data and:
+
+1. Calculates context window usage from token counts
+2. Fetches your rate limits from the Anthropic API (cached for 60 seconds)
+3. Reads the session transcript to find running agents and todo progress
+4. Checks npm for the latest Claude Code version (cached for 1 hour)
+5. Renders everything as a color-coded status line
+
+All network requests happen simultaneously so the HUD stays fast.
+
+### Agent Tracking
+
+When agents are running, they appear in a tree view below the main status line:
+
+- A letter badge shows the model: **O** (Opus), **s** (Sonnet), **h** (Haiku)
+- Elapsed time since the agent started
+- The agent type and a short description
+- Agents older than 30 minutes are automatically hidden
+- Up to 100 agents are tracked per session
+
+### Caching
+
+| Data | Refreshes every | Stored at |
+|------|-----------------|-----------|
+| Rate limits | 60 seconds | `~/.claude/hud/.usage-cache.json` |
+| CC version | 1 hour | `~/.claude/hud/.version-cache.json` |
+
+</details>
 
 ## License
 
