@@ -216,7 +216,7 @@ Close and reopen Claude Code. The HUD will appear at the bottom of your terminal
 
 ### Using with oh-my-claudecode
 
-If you already use [oh-my-claudecode](https://github.com/nicobailon/oh-my-claudecode), the included `omc-hud.mjs` wrapper auto-discovers the OMC plugin — no extra setup needed.
+If you already use [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode), the included `omc-hud.mjs` wrapper auto-discovers the OMC plugin — no extra setup needed.
 
 ## Requirements
 
@@ -256,6 +256,10 @@ When agents are running, they appear in a tree view below the main status line:
 | CC version | 1 hour | `~/.claude/hud/.version-cache.json` |
 
 </details>
+
+## Acknowledgments
+
+METRICC was inspired by and originally forked from the [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) framework. OMC is a fantastic multi-agent orchestration system for Claude Code — go check it out if you haven't already.
 
 ## License
 
