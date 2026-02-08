@@ -1,4 +1,5 @@
 # METRICC
+## A Clean, Lightweight, Design Focused Status Bar for Claude Code
 
 **Model, Edits, Time-windows, Release, Info, Context for Claude Code**
 
