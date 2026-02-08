@@ -1,24 +1,38 @@
-# Claude Code HUD
+# METRICC
 
-A custom statusline for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that shows your rate limits, context usage, running agents, and more — right in your terminal.
-
-No dependencies to install. Just one file.
-
----
-
-## The Full Picture
-
-Here's what the HUD looks like with all features active — rate limits, context, changes, agents, todos, model, and version info all in one line:
+**Model, Edits, Time-windows, Release, Info, Context for Claude Code**
 
 [![Full HUD — click to view full-size](docs/images/hud-full-bar.png)](https://raw.githubusercontent.com/professionalcrastinationco/METRICC/main/docs/images/hud-full-bar.png)
 
 > **Tip:** Click the image above to view it full-size.
 
+No dependencies to install. Just one file.
+
+---
+
+## Why this exists
+
+There are already a hundred Claude Code status bars. Most of them look like someone threw a JSON object at a terminal and called it a day. No offense. Ok, some offense.
+
+I'm a graphic designer with 20+ years of experience and ADHD. I notice when something looks like shit, and I physically cannot parse cluttered information without my brain leaving the building. So I built the status bar I actually wanted to look at.
+
+1. **Scannability** — Glance for half a second, get what you need. If you have to *read* a status bar, it failed.
+2. **Zero visual noise** — No borders, no boxes, no unnecessary separators. Just the data, breathing.
+3. **Zero extra dependencies** — Pure Claude Code API. Nothing to install, nothing to break.
+
+If you want charts and twelve customizable widgets, there are great options out there. Genuinely. Go nuts. If you just want to glance down and know what's going on, this is it.
+
+---
+
+## Who built this?
+
+Claude Code wrote the code. I just refused to accept "good enough" approximately forty-seven times in a row. Claude Code's contribution was not telling me to go fuck myself, which honestly showed remarkable restraint.
+
 ---
 
 ## What Each Piece Means
 
-The screenshots below are **zoomed-in views** of each segment of the status bar so they're easy to read here on GitHub. These all sit side-by-side in a single line — to see the assembled result, scroll up to [The Full Picture](#the-full-picture) or click any segment image to view it full-size.
+The screenshots below are **zoomed-in views** of each segment of the status bar so they're easy to read here on GitHub. These all sit side-by-side in a single line — to see the assembled result, scroll up to the full screenshot or click any segment image to view it full-size.
 
 ---
 
