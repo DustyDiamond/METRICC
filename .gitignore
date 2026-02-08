@@ -1,0 +1,19 @@
+# Windows artifacts
+nul
+
+# Cache
+.usage-cache.json
+
+# OMC state
+.omc/
+
+# Screenshots (stored locally, not in repo)
+*.png
+*.jpg
+*.jpeg
+
+# Doppler
+.doppler/
+
+# Node
+node_modules/
