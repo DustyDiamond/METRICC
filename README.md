@@ -168,8 +168,10 @@ You need to add one setting to your Claude Code settings file.
 
 ```json
 {
-  "env": {
-    "CLAUDE_CODE_STATUSLINE_COMMAND": "node ~/.claude/hud/custom-hud.mjs"
+  "statusLine": {
+    "type": "command",
+    "command": "node ~/.claude/hud/custom-hud.mjs",
+    "padding": 1
   }
 }
 ```
@@ -200,7 +202,11 @@ Add the new line with a comma:
 {
   "env": {
     "SOME_OTHER_SETTING": "value",
-    "CLAUDE_CODE_STATUSLINE_COMMAND": "node ~/.claude/hud/custom-hud.mjs"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node ~/.claude/hud/custom-hud.mjs",
+    "padding": 1
   }
 }
 ```
